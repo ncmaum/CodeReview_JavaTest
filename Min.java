@@ -23,16 +23,24 @@ public class Min
         throw new IllegalArgumentException("Min.min");
       }
       Iterator<? extends T> itr = list.iterator();
-      T result = itr.next();
+      T result = itr;
 
       if (result == null)
         throw new NullPointerException("Min.min");
 
       while (itr.hasNext()) {   // throws NPE, CCE as needed
         T comp = itr.next();
+       
+       	if (comp == null)
+          throw new NullPointerException("Min.min");
+       
+        if (result.getClass().getName() != comp.getClass().getName())
+          throw new ClassCastException("Min.min"); 
+       
         if (comp.compareTo(result) < 0) {
             result = comp;
         }
+        itr = itr.next();
       }
       return result;
   }
